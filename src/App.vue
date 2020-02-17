@@ -1,7 +1,12 @@
 <template>
   <div id="app" :ref="refApp">
     <h1>Filter queries</h1>
-    <b-input v-model="filter" class="mb-3" />
+    <b-input-group class="mb-2">
+      <b-input-group-prepend is-text>
+        <b-icon icon="search"></b-icon>
+      </b-input-group-prepend>
+      <b-form-input type="search" placeholder="Search query" v-model="filter"></b-form-input>
+    </b-input-group>
     <b-table
       class="mb-5"
       tbody-tr-class="button" 
@@ -16,8 +21,8 @@
 
     <div v-for="item in items" v-bind:key="item.description">
       <h1 :ref="createRefName(item.description)">{{ item.description }}
-        <b-icon-documents class="border p-1 button" @click="copyQueryToClipboard(createRefName(item.description))"></b-icon-documents>
-        <b-icon-arrow-up class="border p-1 button" @click="scrollMeTo(refApp)"></b-icon-arrow-up>
+        <b-icon icon="documents" class="border p-1 button" @click="copyQueryToClipboard(createRefName(item.description))"></b-icon>
+        <b-icon icon="arrow-up" class="border p-1 button" @click="scrollMeTo(refApp)"></b-icon>
       </h1>
       <pre>{{ item.query }}</pre>
     </div>
@@ -26,12 +31,8 @@
 </template>
 
 <script>
-import { BIconArrowUp, BIconDocuments } from 'bootstrap-vue'
 export default {
   name: 'App',
-  components: {
-    BIconArrowUp, BIconDocuments
-  },
   data() {
     return {
       filter: '',
